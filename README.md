@@ -47,7 +47,7 @@ I have implemented a Convolutional Autoencoder to reconstruct input images. The 
     <td>
       <table>
         <tr><th>Hyperparameter</th><th>Value</th></tr>
-        <tr><td>MSE Loss Weight</td><td>0.45</td></tr>
+        <tr><td>L1 Loss Weight</td><td>0.45</td></tr>
         <tr><td>SSIM Loss Weight</td><td>0.1</td></tr>
         <tr><td>Perceptual Loss Weight</td><td>0.45</td></tr>
         <tr><td>Train-Test Split</td><td>90:10</td></tr>
