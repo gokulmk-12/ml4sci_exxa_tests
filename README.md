@@ -38,7 +38,7 @@ I have implemented a Convolutional Autoencoder to reconstruct input images. The 
 - Experimented with a weighted blend of L1 loss and SSIM loss, which produced much better results than the previous approaches.
 - Introduced a perceptual loss component using a pretrained VGG-16 network, comparing the original and reconstructed images. This led to clean, sharp reconstructions that effectively preserved the original features.
 
-![flowchart](https://github.com/user-attachments/assets/f34bd624-4c8b-466c-892c-20be26d1f2f4)
+<img src="Image-Based Test/result/flowchart.png" style="width:100%;"/>
 
 **Hyperparamters**
 
