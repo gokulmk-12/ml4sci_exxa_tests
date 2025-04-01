@@ -16,7 +16,7 @@
 - **Expected Graduation**: May, 2026
 
 ## Background
-Hi, I’m Gokul, a Dual Degree student in Engineering Design with a specialization in Robotics at the Indian Institute of Technology, Madras. I’m interested in developing Learning and Control based solutions for Robotic Challenges. To achieve this, I have gathered knowledge in Reinforcement Learning, Control Engineering, Deep Learning and Generative AI. I am proficient in **C**, **C++**, **Python**, and **MATLAB**, along with frameworks such as **PyTorch**, **Torch Lightning**, **Keras**, **TensorFlow**, and **JAX**. Lately, I have been delving into astrophysics, exploring topics like gravitational lensing of massive stars and galaxies. My strong foundation in Deep Learning, combined with my interest in astrophysics, has led me to the DeepLense Project.
+Hi, I’m Gokul, a Dual Degree student in Engineering Design with a specialization in Robotics and a minor in AI at the Indian Institute of Technology, Madras. I’m interested in developing Learning and Control based solutions for Robotic Challenges. To achieve this, I have gathered knowledge in Reinforcement Learning, Control Engineering, Deep Learning and Generative AI. I am proficient in **C**, **C++**, **Python**, and **MATLAB**, along with frameworks such as **PyTorch**, **Torch Lightning**, **Keras**, **TensorFlow**, and **JAX**. Lately, I have been delving into astrophysics, exploring topics like analysing exoplanet atmospheres, strong gravitational lensing. My strong foundation in Deep Learning, combined with my interest in astrophysics, has led me to the EXXA Project.
 
 # Test Details
 ## 1) General Test: Unsupervised Clustering of Protoplanetary disks
@@ -27,8 +27,24 @@ Hi, I’m Gokul, a Dual Degree student in Engineering Design with a specializati
 
 ### Plan & Results
 - To cluster the images, the initial approach was to extract features. Based on the paper, "An evaluation of pre-trained models for feature extraction in image classification", CLIP-ResNet50, ViT-H-14, and ConvNeXt demonstrated superior performance. I chose **ConvNeXt** since the other two models required resizing images from (600, 600) to (224, 224), which could result in the loss of crucial clustering features.
-- After extracting features, each image was represented by a 1000-dimensional feature vector. To reduce dimensionality, I applied UMAP, selecting the three most relevant components for clustering with the Gaussian Mixture Model. The optimal number of clusters was determined using the Silhouette Score and Davies-Bouldin Score.
-- A cluster count of **6** provided the best balance, yielding the **highest Silhouette Score** and **lowest DB Score** across a tested range of 2 to 20. The upper limit was chosen after visually inspecting the data and noting the presence of 73 unique planets.
+- After extracting features, each image was represented by a 1000-dimensional feature vector. To reduce dimensionality, I applied UMAP, selecting the three most relevant components for clustering with the Gaussian Mixture Model (to deal with cluster overlaps). The optimal number of clusters was determined using the Silhouette Score and Davies-Bouldin Score. From the plot below, 2 had the best, but was neglected after visual inspection.
+
+<img src="General Test/results/score.png" style="width:100%; height:auto;"/>
+
+- A cluster count of **6** provided the best balance, yielding the **highest Silhouette Score** and **lowest DB Score** across a tested range of 2 to 20. The upper limit was chosen after visually inspecting the data and noting the presence of 73 unique planets. 
+
+### Clustering Analysis
+- The model aimed to capture fine-grained details on the planet's disk. For instance, in one of the clusters, it identified three high-intensity points around the protoplanetary disk as key features for clustering the planets. This can be confirmed by examining the activation maps. (FM - Feature Map)
+
+<img src="General Test/results/features1.png" style="width:100%; height:10%;"/>
+<img src="General Test/results/cluster4.png" style="width:100%; height:10%;"/>
+
+- The model accurately identifies the specific regions where the disks are located in the image and utilizes this information, along with intensity levels, to cluster planets, as illustrated below.
+
+<img src="General Test/results/features2.png" style="width:100%; height:10%;"/>
+<img src="General Test/results/cluster3.png" style="width:100%; height:10%;"/>
+
+**NOTE**: The DB and Silhouette scores are highly variable and change with each run. I used them to estimate an approximate cluster number. Please disregard the plot and instead refer to the interactive cluster plot in the last cell.
 
 ## 2) Image-Based Test: Reconstruction of Disk Images
 - **Goal**: Autoencoder to output the images resembling the inputs
@@ -71,8 +87,8 @@ I have implemented a Convolutional Autoencoder to reconstruct input images. The 
   </tr>
 </table>
 
-Below are the MSE, SSIM plot distribution over the test dataset (15 images), and few example reconstructions from the test dataset.
+Below are the MSE, SSIM plot distribution over the test dataset (15 images), and few example reconstructions from the test dataset. Please do take care of the scale below in the MSE plot.
 
-![resultPlot](https://github.com/user-attachments/assets/f235a658-d589-445d-8d27-9bc52a935867)
+<img src="Image-Based Test/result/resultPlot.png" style="width:100%;"/>
 
-![resultAE](https://github.com/user-attachments/assets/4909fe11-7a11-4de5-ab4d-23e1bc3af2e2)
+<img src="Image-Based Test/result/resultAE.png" style="width:100%;"/>
