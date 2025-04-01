@@ -93,3 +93,8 @@ Below are the MSE, SSIM plot distribution over the test dataset (15 images), and
 <img src="Image-Based Test/result/resultPlot.png" style="width:100%;"/>
 
 <img src="Image-Based Test/result/resultAE.png" style="width:100%;"/>
+
+## References
+- https://learn.astropy.org/tutorials/FITS-images.html
+- [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/abs/1603.08155)
+- https://www.kungfu.ai/blog-post/convnext-a-transformer-inspired-cnn-architecture
