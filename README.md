@@ -50,6 +50,7 @@ Hi, I’m Gokul, a Dual Degree student in Engineering Design with a specializati
 - **Goal**: Autoencoder to output the images resembling the inputs
 - **Evaluation**: MSE, SSIM 
 - **Library**: torch, torchvision, sklearn
+- **Dataset**: https://drive.google.com/file/d/1zUYoQs7VxxtYNgBueL-53zh9-JClfQ5U/view?usp=sharing
 
 ### Plan & Results
 I have implemented a Convolutional Autoencoder to reconstruct input images. The figure below gives an overview of the architecture used. The images were resized to (128, 128) to enable homogenity with the autoencoder architecture. 
