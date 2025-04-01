@@ -23,6 +23,12 @@ Hi, I’m Gokul, a Dual Degree student in Engineering Design with a specializati
 - **Goal**: Machine learning model capable of unsupervised clustering of the disks
 - **Evaluation**: Visual Inspection
 - **Library**: torch, torchvision, sklearn
+- **Specific Reference**: [An evaluation of pre-trained models for feature extraction in image classification](https://arxiv.org/abs/2310.02037)
+
+### Plan & Results
+- To cluster the images, the initial approach was to extract features. Based on the paper, "An evaluation of pre-trained models for feature extraction in image classification", CLIP-ResNet50, ViT-H-14, and ConvNeXt demonstrated superior performance. I chose **ConvNeXt** since the other two models required resizing images from (600, 600) to (224, 224), which could result in the loss of crucial clustering features.
+- After extracting features, each image was represented by a 1000-dimensional feature vector. To reduce dimensionality, I applied UMAP, selecting the three most relevant components for clustering with the Gaussian Mixture Model. The optimal number of clusters was determined using the Silhouette Score and Davies-Bouldin Score.
+- A cluster count of **6** provided the best balance, yielding the **highest Silhouette Score** and **lowest DB Score** across a tested range of 2 to 20. The upper limit was chosen after visually inspecting the data and noting the presence of 73 unique planets.
 
 ## 2) Image-Based Test: Reconstruction of Disk Images
 - **Goal**: Autoencoder to output the images resembling the inputs
