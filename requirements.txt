@@ -1,0 +1,15 @@
+torch
+torchvision
+torchaudio
+numpy
+matplotlib
+Pillow
+tqdm
+seaborn
+astropy
+pytorch-msssim
+scikit-image
+scikit-learn
+umap-learn
+torchcam
+ipywidgets
