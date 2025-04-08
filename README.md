@@ -2,7 +2,7 @@
 
 ## Contact Information
 - **Name**    : Gokul M K
-- **Email**   : ed21b026@smail.iitm.ac.in
+- **Email**   : mkgokul2003@gmail.com
 - **Github**  : [gokulmk-12](https://github.com/gokulmk-12)
 - **Website** : [Portfolio](https://gokulmk-12.github.io/)
 - **LinkedIn**: [gokul-m-k](https://www.linkedin.com/in/gokul-m-k-886a93263/)
@@ -93,6 +93,48 @@ Below are the MSE, SSIM plot distribution over the test dataset (15 images), and
 <img src="Image-Based Test/result/resultPlot.png" style="width:100%;"/>
 
 <img src="Image-Based Test/result/resultAE.png" style="width:100%;"/>
+
+## 3) Sequential Test: Supervised classifier for light curves
+- **Goal**: Machine learning model capable of determining the presence of planets from light (transit) curves.
+- **Evaluation**: ROC, AUC, Real Kepler Observation
+- **Library**: pytransit, torch, sklearn, astropy 
+- **Specific Reference**: [Deep learning for time series classification: a review](https://arxiv.org/abs/1809.04356)
+
+### Plan & Results
+I created a dataset of transit curves using the pytransit package. There are in total 1000 transit curves, 500 have transit depth indicating the presence of a planet, 500 other are flat indicating no planet presence. Some gaussian noise was added to mimic real observation. Table below explains the range used for various transit parameters.
+
+<table>
+  <tr>
+    <td>
+      <table>
+        <tr><th>Transit Parameters</th><th>Range</th></tr>
+        <tr><td>Planet-Star Radius Ratio (k)</td><td>Normal(0.10, 0.002)</td></tr>
+        <tr><td>Orbital Period (p)</td><td>Normal(1.0, 0.01)</td></tr>
+        <tr><td>Limb Darkening Coefficient (ldc)</td><td>Uniform(0.0, 0.6, (1, 2))</td></tr>
+        <tr><td>Scaled Semi-Major Axis (a)</td><td>Normal(4.2, 0.1)</td></tr>
+      </table>
+    </td>
+    <td>
+      <table>
+        <tr><th>Transit Parameters</th><th>Range</th></tr>
+        <tr><td>Zero Epoch (t0)</td><td>Normal(0.0, 0.001)</td></tr>
+        <tr><td>Orbital Inclination (i)</td><td>Uniform(0.48 &pi;, 0.5 &pi;)</td></tr>
+        <tr><td>Orbital Eccentricity (e)</td><td>Uniform(0.0, 0.25)</td></tr>
+        <tr><td>Argument of Periastron (w)</td><td>Default</td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+I have used ResNet-1D network for the classification task. According to the paper [Deep learning for time series classification: a review](https://arxiv.org/abs/1809.04356), ResNet-1D was the best performing among other models for univariate time series classification. The training time was very short (10 seconds) and the model learned within 10 iterations from the train dataset. Given below are some model hyperparameters used, followed by results.
+
+<table>
+  <tr><th>Hyperparameters</th><th>Value</th></tr>
+  <tr><td>Learning Rate</td><td>0.001</td></tr>
+  <tr><td>Optimizer</td><td>Adam</td></tr>
+  <tr><td>Batch Size</td><td>16</td></tr>
+  <tr><td>Train-Test Split</td><td>90:10</td></tr>
+</table>
 
 ## References
 - https://learn.astropy.org/tutorials/FITS-images.html
