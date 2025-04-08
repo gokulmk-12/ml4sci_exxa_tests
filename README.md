@@ -99,9 +99,10 @@ Below are the MSE, SSIM plot distribution over the test dataset (15 images), and
 - **Evaluation**: ROC, AUC, Real Kepler Observation
 - **Library**: pytransit, torch, sklearn, astropy 
 - **Specific Reference**: [Deep learning for time series classification: a review](https://arxiv.org/abs/1809.04356)
+- **Dataset**: Located in the same directory as the notebook
 
 ### Plan & Results
-I created a dataset of transit curves using the pytransit package. There are in total 1000 transit curves, 500 have transit depth indicating the presence of a planet, 500 other are flat indicating no planet presence. Some gaussian noise was added to mimic real observation. Table below explains the range used for various transit parameters.
+I generated a dataset of 1,000 light curves using the [PyTransit](https://pytransit.readthedocs.io/en/latest/index.html) package. Half of them (500) simulate planetary transits with visible transit depths, while the remaining 500 are flat curves representing the absence of a planet. To mimic real-world observations, Gaussian noise was added. The table below outlines the parameter ranges used for simulating the transits.
 
 <table>
   <tr>
@@ -120,13 +121,15 @@ I created a dataset of transit curves using the pytransit package. There are in 
         <tr><td>Zero Epoch (t0)</td><td>Normal(0.0, 0.001)</td></tr>
         <tr><td>Orbital Inclination (i)</td><td>Uniform(0.48 &pi;, 0.5 &pi;)</td></tr>
         <tr><td>Orbital Eccentricity (e)</td><td>Uniform(0.0, 0.25)</td></tr>
-        <tr><td>Argument of Periastron (w)</td><td>Default</td></tr>
+        <tr><td>Gaussian Noise</td><td>300 PPM</td></tr>
       </table>
     </td>
   </tr>
 </table>
 
-I have used ResNet-1D network for the classification task. According to the paper [Deep learning for time series classification: a review](https://arxiv.org/abs/1809.04356), ResNet-1D was the best performing among other models for univariate time series classification. The training time was very short (10 seconds) and the model learned within 10 iterations from the train dataset. Given below are some model hyperparameters used, followed by results.
+<img src="Sequential Test/results/sampleplot.png" style="width:100%;"/>
+
+For the classification task, I employed a ResNet-1D architecture. According to the paper [Deep learning for time series classification: a review](https://arxiv.org/abs/1809.04356), ResNet-1D consistently outperforms other models in univariate time series classification. The model trained rapidly, within just 10 seconds, and successfully learned the classification in under 10 iterations. Below are the key hyperparameters used, followed by the results.
 
 <table>
   <tr><th>Hyperparameters</th><th>Value</th></tr>
@@ -136,7 +139,20 @@ I have used ResNet-1D network for the classification task. According to the pape
   <tr><td>Train-Test Split</td><td>90:10</td></tr>
 </table>
 
+<img src="Sequential Test/results/rocauc.png" style="width:100%;"/>
+<img src="Sequential Test/results/modelpred.png" style="width:100%;"/>
+
+The model was then evaluated on real light curve observations from the Kepler mission. I utilized a curated [Kepler example file](https://docs.astropy.org/en/stable/timeseries/index.html#using-timeseries) provided by Astropy, along with raw Kepler light curve data from the [MAST archive](https://archive.stsci.edu/kepler/download_options.html). Both datasets are in FITS format. The model's predictions on these files are presented below.
+
+<img src="Sequential Test/results/planet1.png" style="width:100%;"/>
+<img src="Sequential Test/results/planet2.png" style="width:100%;"/>
+
 ## References
 - https://learn.astropy.org/tutorials/FITS-images.html
+- https://avanderburg.github.io/tutorial/tutorial.html
+- https://pytransit.readthedocs.io/en/latest/index.html
+- https://lightkurve.github.io/lightkurve/index.html
+- https://docs.astropy.org/en/stable/timeseries/index.html#using-timeseries
+- https://archive.stsci.edu/kepler/download_options.html
 - [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/abs/1603.08155)
 - https://www.kungfu.ai/blog-post/convnext-a-transformer-inspired-cnn-architecture
